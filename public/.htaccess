@@ -1,0 +1,21 @@
+# public/.htaccess
+RewriteEngine On
+
+# تحديد المسار الأساسي بشكل صحيح
+RewriteBase /
+
+# استثناء الملفات والمجلدات الحقيقية من إعادة الكتابة
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+
+# توجيه كل شيء إلى index.php
+RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
+
+# تحسينات الأمان
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# السماح بالوصول
+Require all granted
