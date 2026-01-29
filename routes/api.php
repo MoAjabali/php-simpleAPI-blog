@@ -5,6 +5,11 @@ use App\Core\Router;
 // إنشاء كائن الراوتر
 $router = new Router();
 
+// مسارات المصادقة عبر API
+$router->post('api/login', 'AuthApiController@login');
+$router->post('api/register', 'AuthApiController@register');
+$router->post('api/logout', 'AuthApiController@logout');
+
 
 
 return $router;
