@@ -35,7 +35,21 @@ try {
     $pdo->exec($sqlUsers);
     echo "Table 'users' created successfully!\n";
 
-    
+    // 4. إنشاء جدول المدونات
+    $sqlBlogs = "CREATE TABLE IF NOT EXISTS `blogs` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `user_id` int(11) NOT NULL,
+      `title` varchar(255) NOT NULL,
+      `content` text NOT NULL,
+      `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (`id`),
+      KEY `user_id` (`user_id`),
+      CONSTRAINT `blogs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
+
+    $pdo->exec($sqlBlogs);
+    echo "Table 'blogs' created successfully!\n";
 
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage() . "\n";
